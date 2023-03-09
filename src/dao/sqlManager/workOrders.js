@@ -43,7 +43,15 @@ export default class WorkOrders {
       console.log(error);
     }
   };
-  getMyWorkOrders = async (technical) => {};
+
+  getMyWorkOrders = async (technical) => {
+    try {
+      const query = `SELECT * FROM trabajos WHERE tecnico='${technical}' AND estado = 22 AND codigo != 'ANULADO' ORDER BY prioridad DESC`;
+      return await this.#getFromUrbano(query);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   getInProcess = async () => {};
   getToDeliver = async () => {};
 }

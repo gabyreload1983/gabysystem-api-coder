@@ -30,7 +30,18 @@ router.get("/pending/:sector", async (req, res) => {
     let { sector } = req.params;
     sector = sector.toLowerCase();
     const result = await workOrdersManager.getPending(sector);
-    console.log(result.length);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error });
+  }
+});
+
+router.get("/technical/:technical", async (req, res) => {
+  try {
+    let { technical } = req.params;
+    technical = technical.toLowerCase();
+    const result = await workOrdersManager.getMyWorkOrders(technical);
     res.send(result);
   } catch (error) {
     console.log(error);
