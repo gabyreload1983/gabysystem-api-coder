@@ -48,7 +48,18 @@ router.get("/in-process", async (req, res) => {
   }
 });
 
-router.get("/:nrocompro", async (req, res) => {
+router.get("/to-deliver/:quantity/:time", async (req, res) => {
+  try {
+    const { quantity, time } = req.params;
+    const result = await workOrdersManager.getToDeliver(quantity, time);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error });
+  }
+});
+
+router.get("/nrocompro/:nrocompro", async (req, res) => {
   try {
     const { nrocompro } = req.params;
     const result = await workOrdersManager.getWorkOrder(nrocompro);

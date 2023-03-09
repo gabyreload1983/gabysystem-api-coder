@@ -60,5 +60,14 @@ export default class WorkOrders {
       console.log(error);
     }
   };
-  getToDeliver = async () => {};
+  getToDeliver = async (quantity = 1, time = "YEAR") => {
+    try {
+      const query = `
+      SELECT * FROM trabajos WHERE ingresado BETWEEN DATE_ADD(NOW(),INTERVAL - ${quantity} ${time}) AND NOW() AND
+      codigo != 'ANULADO' AND estado = 23  AND ubicacion = 21 ORDER BY ingresado DESC`;
+      return await this.#getFromUrbano(query);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
