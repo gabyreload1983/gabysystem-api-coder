@@ -35,7 +35,14 @@ export default class WorkOrders {
     }
   };
 
-  getPending = async (sector) => {};
+  getPending = async (sector) => {
+    try {
+      const query = `SELECT * FROM trabajos WHERE  codiart = '.${sector}' AND estado = 21 AND codigo != 'ANULADO' ORDER BY prioridad DESC`;
+      return await this.#getFromUrbano(query);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   getMyWorkOrders = async (technical) => {};
   getInProcess = async () => {};
   getToDeliver = async () => {};

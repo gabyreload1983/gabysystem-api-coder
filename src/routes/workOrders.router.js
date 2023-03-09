@@ -25,4 +25,17 @@ router.get("/:nrocompro", async (req, res) => {
   }
 });
 
+router.get("/pending/:sector", async (req, res) => {
+  try {
+    let { sector } = req.params;
+    sector = sector.toLowerCase();
+    const result = await workOrdersManager.getPending(sector);
+    console.log(result.length);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error });
+  }
+});
+
 export default router;
