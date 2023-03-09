@@ -52,6 +52,13 @@ export default class WorkOrders {
       console.log(error);
     }
   };
-  getInProcess = async () => {};
+  getInProcess = async () => {
+    try {
+      const query = `SELECT * FROM trabajos WHERE estado = 22 ORDER BY tecnico`;
+      return await this.#getFromUrbano(query);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   getToDeliver = async () => {};
 }

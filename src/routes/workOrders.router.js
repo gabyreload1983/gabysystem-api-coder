@@ -14,17 +14,6 @@ router.get("/all", async (req, res) => {
   }
 });
 
-router.get("/:nrocompro", async (req, res) => {
-  try {
-    const { nrocompro } = req.params;
-    const result = await workOrdersManager.getWorkOrder(nrocompro);
-    res.send(result);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ error });
-  }
-});
-
 router.get("/pending/:sector", async (req, res) => {
   try {
     let { sector } = req.params;
@@ -42,6 +31,27 @@ router.get("/technical/:technical", async (req, res) => {
     let { technical } = req.params;
     technical = technical.toLowerCase();
     const result = await workOrdersManager.getMyWorkOrders(technical);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error });
+  }
+});
+
+router.get("/in-process", async (req, res) => {
+  try {
+    const result = await workOrdersManager.getInProcess();
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error });
+  }
+});
+
+router.get("/:nrocompro", async (req, res) => {
+  try {
+    const { nrocompro } = req.params;
+    const result = await workOrdersManager.getWorkOrder(nrocompro);
     res.send(result);
   } catch (error) {
     console.log(error);
