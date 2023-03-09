@@ -20,8 +20,16 @@ export default class WorkOrders {
   getAll = async () => {
     try {
       const query = "SELECT * FROM trabajos LIMIT 2";
-      const result = await this.#getFromUrbano(query);
-      return result;
+      return await this.#getFromUrbano(query);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getWorkOrder = async (nrocompro) => {
+    try {
+      const query = `SELECT * FROM trabajos WHERE nrocompro = '${nrocompro}'`;
+      return await this.#getFromUrbano(query);
     } catch (error) {
       console.log(error);
     }

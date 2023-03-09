@@ -14,4 +14,15 @@ router.get("/all", async (req, res) => {
   }
 });
 
+router.get("/:nrocompro", async (req, res) => {
+  try {
+    const { nrocompro } = req.params;
+    const result = await workOrdersManager.getWorkOrder(nrocompro);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error });
+  }
+});
+
 export default router;
