@@ -5,14 +5,23 @@ export default class WorkOrders {
     console.log("Working with urbano mysql");
   }
 
+  #getFromUrbano = (query) => {
+    return new Promise((resolve, reject) => {
+      urbano.query(query, (error, result) => {
+        if (error) {
+          reject(new Error(error));
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  };
+
   getAll = async () => {
     try {
-      return new Promise((resolve, reject) => {
-        urbano.query("SELECT * FROM trabajos LIMIT 2", (error, results) => {
-          if (error) reject(new Error(error));
-          resolve(results);
-        });
-      });
+      const query = "SELECT * FROM trabajos LIMIT 2";
+      const result = await this.#getFromUrbano(query);
+      return result;
     } catch (error) {
       console.log(error);
     }
