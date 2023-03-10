@@ -70,4 +70,13 @@ export default class WorkOrders {
       console.log(error);
     }
   };
+
+  take = async (nrocompro, technical) => {
+    try {
+      const query = `UPDATE trabajos SET estado=22, tecnico ='${technical}' WHERE nrocompro ='${nrocompro}'`;
+      return await this.#getFromUrbano(query);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }

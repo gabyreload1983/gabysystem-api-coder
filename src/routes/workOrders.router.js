@@ -4,6 +4,7 @@ import WorkOrders from "./../dao/sqlManager/workOrders.js";
 const workOrdersManager = new WorkOrders();
 const router = Router();
 
+// get
 router.get("/all", async (req, res) => {
   try {
     const result = await workOrdersManager.getAll();
@@ -68,6 +69,18 @@ router.get("/nrocompro/:nrocompro", async (req, res) => {
     console.log(error);
     res.status(500).send({ error });
   }
+});
+
+// patch
+router.patch("/take/:nrocompro/technical/:technical", async (req, res) => {
+  try {
+    const { nrocompro, technical } = req.params;
+    const result = await workOrdersManager.take(
+      nrocompro,
+      technical.toUpperCase()
+    );
+    res.send(result);
+  } catch (error) {}
 });
 
 export default router;
